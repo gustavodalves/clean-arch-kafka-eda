@@ -4,12 +4,12 @@ import { faker } from '@faker-js/faker';
 import { TransactionRepositoryFake, TransactionRepositoryMySQL } from '../infra/repository';
 import { TransactionService } from '../application/services/transaction.service';
 
-function gerarNumeroAleatorio(): number {
+function generateRandomNumbers(): number {
     const numero = Math.random() * 100;
-    const numeroComDuasCasasDecimais = parseFloat(numero.toFixed(2));
+    const randomNumberWithFixedIn2 = parseFloat(numero.toFixed(2));
     
-    return numeroComDuasCasasDecimais;
-  }
+    return randomNumberWithFixedIn2;
+}
 
 const run = async () => {
     const kafka = await new KafkaFactory().generate()
@@ -21,7 +21,7 @@ const run = async () => {
     )
 
     do {
-        await transactionService.create(gerarNumeroAleatorio(), faker.internet.email())
+        await transactionService.create(generateRandomNumbers(), faker.internet.email())
         await new Promise(resolve => setTimeout(resolve, 25));
     } while(true)
 };
